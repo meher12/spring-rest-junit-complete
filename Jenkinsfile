@@ -7,14 +7,19 @@ pipeline {
   buildDiscarder(logRotator( numToKeepStr: '5', daysToKeepStr: '5'))
   }
   
- triggers {
+ //triggers {
        // poll repo every  minute for changes
-       pollSCM('* * * * *')
-  }
+   //    pollSCM('* * * * *')
+  //}
   
   stages {
     stage('SCM') {
         steps {
+            properties([
+               pipelineTriggers([
+                  pollSCM('* * * * *')
+                ]) 
+            ])
           checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'kpiswiseserver', url: 'https://github.com/meher12/spring-rest-junit-complete.git']]])
         }
     }
