@@ -3,6 +3,11 @@ pipeline {
   options {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
+  
+  triggers {
+       // poll repo every 2 minute for changes
+       pollSCM('* * * * *')
+   }
   stages {
     stage('SCM') {
         steps {
