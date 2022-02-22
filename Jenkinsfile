@@ -53,7 +53,8 @@ pipeline {
       steps {
         withSonarQubeEnv(installationName: 'sonarjenckis') { 
              echo "-=- execute Sonarqube Scan -=-"
-            sh 'mvn clean package  -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml sonar:sonar'
+            //sh 'mvn clean package  -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml sonar:sonar'
+            sh 'mvn clean package   sonar:sonar'
         }
       }
     }
@@ -64,7 +65,7 @@ pipeline {
             script {
                echo "-=- Get Sonarqube Quality Gate -=-"
               def qg = waitForQualityGate()
-                 if (qg.status != 'OK') {
+                 if (qg.status != 'OK' || qg.status == 'WARN') {
                     error "Pipeline aborted due to quality gate failure: ${qg.status}"
                   }
              }
