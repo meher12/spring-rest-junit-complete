@@ -4,10 +4,16 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
   
-  triggers {
+  properties([
+        pipelineTriggers([
+            pollSCM('* * * * *')
+        ])
+      ])
+  
+ // triggers {
        // poll repo every 2 minute for changes
-       pollSCM('* * * * *')
-   }
+     //  pollSCM('* * * * *')
+  // }
   stages {
     stage('SCM') {
         steps {
