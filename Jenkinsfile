@@ -1,19 +1,17 @@
 pipeline {
   agent { label 'linux' }
   options {
-    buildDiscarder(logRotator(numToKeepStr: '5'))
+    //buildDiscarder(logRotator(numToKeepStr: '5'))
+    
+    disableConcurrentBuilds() 
+  buildDiscarder(logRotator( numToKeepStr: '5', daysToKeepStr: '5'))
   }
   
-  properties([
-        pipelineTriggers([
-            pollSCM('* * * * *')
-        ])
-      ])
+ triggers {
+       // poll repo every  minute for changes
+       pollSCM('* * * * *')
+  }
   
- // triggers {
-       // poll repo every 2 minute for changes
-     //  pollSCM('* * * * *')
-  // }
   stages {
     stage('SCM') {
         steps {
