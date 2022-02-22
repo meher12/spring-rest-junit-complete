@@ -11,19 +11,19 @@ import com.mdev.springboot.model.Product;
 import com.mdev.springboot.repository.ProductRepository;
 
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
 
     private ProductRepository productRepository;
 
     @Autowired
-    public void setProductRepository(ProductRepository productRepository){
+    public void setProductRepository(ProductRepository productRepository) {
 
-        this.productRepository =productRepository;
+        this.productRepository = productRepository;
     }
 
     @Override
     public Product addProduct(Product product) throws ProductAlreadyExistsException {
-        if(productRepository.existsById(product.getId())){
+        if (productRepository.existsById(product.getId())) {
             throw new ProductAlreadyExistsException();
         }
         return productRepository.save(product);
@@ -43,15 +43,13 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public Product deleteProductById(int id) {
         Product product = null;
-        try {
-                Optional optional = productRepository.findById(id);
-                if (optional.isPresent()) {
-                    product = productRepository.findById(id).get();
-                    productRepository.deleteById(id);
-                }
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-        }       
+
+        Optional optional = productRepository.findById(id);
+        if (optional.isPresent()) {
+            product = productRepository.findById(id).get();
+            productRepository.deleteById(id);
+        }
+
         return product;
     }
 
