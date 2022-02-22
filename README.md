@@ -6,4 +6,6 @@
 
 ## Testing the Repository Layer
 
+## Jenkins CI reference pipeline for Java Spring Boot projects with Maven lifecycle and Docker packaging
+
 ---- Spring Boot RESTful testing junit 5 And Mockito ;) @Mock
