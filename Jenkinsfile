@@ -1,11 +1,23 @@
 pipeline {
+
   agent { label 'linux' }
+  
+  // --Changes in build triggers in scripted pipelines are only seen by Jenkins after the changed pipeline ran.
+//  ---Note: Verify on the Jenkins master, whether the new triggers are now visible in the configuration view.
+
+  //properties([
+    //buildDiscarder(logRotator(numToKeepStr: '5')),
+    //pipelineTriggers([
+      //  pollSCM('H/5 * * * *')
+    //])
+  //])
   
  options {
         buildDiscarder(logRotator(numToKeepStr: '5'))
-        timeout(time: 10, unit: 'MINUTES')
-        timestamps()  // Requires the "Timestamper Plugin"
+        //timeout(time: 10, unit: 'MINUTES')
+        //timestamps()  // Requires the "Timestamper Plugin"
     }
+    
     triggers {
         pollSCM('* * * * *')
     }
