@@ -1,26 +1,18 @@
 pipeline {
   agent { label 'linux' }
-  options {
-    buildDiscarder(logRotator(numToKeepStr: '5'))
-  }
   
- //triggers {
-       // poll repo every  minute for changes
-   //    pollSCM('* * * * *')
-  //}
+ options {
+        buildDiscarder(logRotator(numToKeepStr: '5'))
+        timeout(time: 10, unit: 'MINUTES')
+        timestamps()  // Requires the "Timestamper Plugin"
+    }
+    triggers {
+        pollSCM('* * * * *')
+    }
   
   stages {
     stage('SCM') {
         steps {
-        
-        //enable remote triggers
-        script {
-             properties([
-              pipelineTriggers([
-                  pollSCM('* * * * *')
-                ]) 
-            ])
-        }
 
          //define scm connection for polling  
         checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'kpiswiseserver', url: 'https://github.com/meher12/spring-rest-junit-complete.git']]])
