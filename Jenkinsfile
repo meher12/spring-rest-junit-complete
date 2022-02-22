@@ -1,10 +1,7 @@
 pipeline {
   agent { label 'linux' }
   options {
-    //buildDiscarder(logRotator(numToKeepStr: '5'))
-    
-    disableConcurrentBuilds() 
-  buildDiscarder(logRotator( numToKeepStr: '5', daysToKeepStr: '5'))
+    buildDiscarder(logRotator(numToKeepStr: '5'))
   }
   
  //triggers {
