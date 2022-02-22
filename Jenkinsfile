@@ -12,12 +12,18 @@ pipeline {
   stages {
     stage('SCM') {
         steps {
-            properties([
+        
+        //enable remote triggers
+        script {
+             properties([
                pipelineTriggers([
-                  pollSCM('* * * * *')
+                  pollSCM('')
                 ]) 
             ])
-          checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'kpiswiseserver', url: 'https://github.com/meher12/spring-rest-junit-complete.git']]])
+        }
+
+         //define scm connection for polling  
+        checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'kpiswiseserver', url: 'https://github.com/meher12/spring-rest-junit-complete.git']]])
         }
     }
     
