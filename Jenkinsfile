@@ -76,7 +76,20 @@ pipeline {
     }
     
     
-    
+    //stage('Package') {
+    //    steps {
+    //        echo "-=- packaging project -=-"
+    //        sh "./mvnw package -DskipTests"
+    //        archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+    //    }
+    //}
+    //
+    //stage('Build Docker image') {
+    //    steps {
+    //        echo "-=- build Docker image -=-"
+    //        sh "./mvnw docker:build"
+    //    }
+    //}
     
     
   }
