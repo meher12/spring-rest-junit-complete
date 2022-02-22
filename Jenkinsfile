@@ -33,7 +33,7 @@ pipeline {
       steps {
         withSonarQubeEnv(installationName: 'sonarjenckis') { 
              echo "-=- execute Sonarqube Scan -=-"
-            sh 'mvn clean package sonar:sonar'
+            sh 'mvn clean package  -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml sonar:sonar'
         }
       }
     }
