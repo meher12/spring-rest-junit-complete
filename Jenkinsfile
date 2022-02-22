@@ -16,8 +16,8 @@ pipeline {
         //enable remote triggers
         script {
              properties([
-               pipelineTriggers([
-                  pollSCM('')
+              pipelineTriggers([
+                  pollSCM('* * * * *')
                 ]) 
             ])
         }
