@@ -43,13 +43,15 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public Product deleteProductById(int id) {
         Product product = null;
-        Optional<Object> optional =null;
-        //Optional optional = productRepository.findById(id);
-        optional.ofNullable(productRepository.findById(id)).orElse(null);
-        if (optional.isPresent()) {
-            product = productRepository.findById(id).get();
-            productRepository.deleteById(id);
-        }
+        try {
+                Optional optional = productRepository.findById(id);
+                if (optional.isPresent()) {
+                    product = productRepository.findById(id).get();
+                    productRepository.deleteById(id);
+                }
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }       
         return product;
     }
 
