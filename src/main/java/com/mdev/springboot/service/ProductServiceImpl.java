@@ -43,9 +43,9 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public Product deleteProductById(int id) {
         Product product = null;
-        Optional optional = null;
+        Optional<Object> optional =null;
         //Optional optional = productRepository.findById(id);
-        optional.ofNullable(productRepository.findById(id)).orElseThrow(RuntimeException::new);
+        optional.ofNullable(productRepository.findById(id)).orElse(null);
         if (optional.isPresent()) {
             product = productRepository.findById(id).get();
             productRepository.deleteById(id);

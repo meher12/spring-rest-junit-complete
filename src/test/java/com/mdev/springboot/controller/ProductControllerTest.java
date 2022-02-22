@@ -93,7 +93,7 @@ public class ProductControllerTest {
 //				.andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
 //	}
 
-	static String asJsonString(final Object obj) {
+	public String asJsonString(final Object obj) {
 		try {
 			return new ObjectMapper().writeValueAsString(obj);
 		} catch (Exception e) {
