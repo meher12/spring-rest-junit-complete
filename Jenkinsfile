@@ -12,24 +12,27 @@ pipeline {
     
     stage('Build'){
         steps {
+          echo "-=- compiling project -=-"
           sh 'mvn clean compile'
          }
     }
     
      stage('Unit Test'){
         steps {
+          echo "-=- execute unit tests -=-"
           sh 'mvn test'
          }
         post {
-                always {
+              always {
                     junit '**/target/surefire-reports/TEST-*.xml'
-                }
+              }
         }
     }
     
     stage('Scan') {
       steps {
         withSonarQubeEnv(installationName: 'sonarjenckis') { 
+             echo "-=- execute Sonarqube Scan -=-"
             sh 'mvn clean package sonar:sonar'
         }
       }
@@ -39,6 +42,7 @@ pipeline {
         steps {
            timeout(time: 2, unit: 'MINUTES') {
             script {
+               echo "-=- Get Sonarqube Quality Gate -=-"
               def qg = waitForQualityGate()
                  if (qg.status != 'OK') {
                     error "Pipeline aborted due to quality gate failure: ${qg.status}"
