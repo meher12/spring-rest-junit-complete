@@ -13,7 +13,6 @@ pipeline {
   stages {
     stage('SCM') {
         steps {
-
          //define scm connection for polling  
         checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'kpiswiseserver', url: 'https://github.com/meher12/spring-rest-junit-complete.git']]])
         }
